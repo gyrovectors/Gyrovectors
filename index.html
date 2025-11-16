@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GyroVector Games - Educational Game Studio</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Define your custom color and font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom utility classes for reusability based on your old styles */
+        .primary-button {
+            @apply inline-block px-8 py-3 font-semibold uppercase tracking-widest rounded-full transition duration-300;
+        }
+
+        .primary-color {
+            color: #E94E34;
+        }
+
+        .primary-bg {
+            background-color: #E94E34;
+        }
+
+        .nav-link:hover {
+            color: #E94E34;
+            transition: color 0.2s;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #333333;
+        }
+
+        .cta-button {
+            background-color: #E94E34;
+            color: white;
+            border-radius: 9999px;
+            transition: background-color 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #cc452f;
+        }
+
+        .svg-icon-circle {
+            border: 2px solid #E94E34;
+            border-radius: 9999px;
+        }
+
+        .icon-text {
+            color: #E94E34;
+        }
+
+        /* Hero Video Full Screen */
+        #video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-50 bg-white shadow-lg" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+            <div class="flex items-center space-x-2">
+                <a href="index.html" class="text-2xl font-extrabold primary-color-text">
+
+                    <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" stroke="#E94E34" stroke-width="5" />
+                        <text x="50" y="70" font-family="Inter, sans-serif" font-size="50" font-weight="900"
+                            fill="#E94E34" text-anchor="middle">GV</text>
+                    </svg>
+                </a>
+
+                <a href="index.html" class="text-2xl font-extrabold primary-color-text">
+                    <div class="text-xl font-bold text-gray-800">GyroVector Games</div>
+                </a>
+            </div>
+
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <!-- <a href="casual.html" class="nav-link">Casual Games</a> -->
+                <!-- <a href="services.html" class="nav-link">Services</a> -->
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+
+            <button class="md:hidden text-gray-700 hover:text-[#3b82f6] transition p-2 rounded-full"
+                @click="mobileMenuOpen = !mobileMenuOpen">
+                <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+                <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="md:hidden absolute top-[72px] left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out"
+            x-show="mobileMenuOpen" x-cloak x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform -translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-4" @click.outside="mobileMenuOpen = false">
+            <a href="portfolio.html"
+                class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50"
+                @click="mobileMenuOpen = false">Portfolio</a>
+            <a href="casual.html"
+                class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50"
+                @click="mobileMenuOpen = false">Casual Games</a>
+            <a href="#services"
+                class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50"
+                @click="mobileMenuOpen = false">Services</a>
+            <a href="contact.html"
+                class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50"
+                @click="mobileMenuOpen = false">Contact</a>
+            <a href="about.html"
+                class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50"
+                @click="mobileMenuOpen = false">About</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+            <div class="absolute inset-0 z-0 hero-background">
+                <!-- <video autoplay muted loop id="video-bg" class="w-full h-full">
+                    <source src="assets/video/temp.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video> -->
+                <img src="assets/images/display.gif" alt="Your browser does not support the img tag." id="video-bg" class="w-full h-full"> 
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+            </div>
+
+            <div class="relative z-10 hero-content text-white max-w-4xl px-4">
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4">GyroVector Games</h1>
+                <p class="text-xl sm:text-2xl font-light mb-8">Educational Games. Anytime. Anywhere.</p>
+
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="portfolio.html" class="px-8 py-4 text-lg font-bold uppercase tracking-wider 
+              rounded-full primary-bg text-white 
+              hover:bg-red-700 transition duration-300 shadow-lg">
+                        VIEW PROJECTS
+                    </a>
+
+                    <a href="contact.html" class="px-8 py-4 text-lg font-bold uppercase tracking-wider 
+              rounded-full bg-white text-red-600 
+              hover:bg-gray-100 transition duration-300 shadow-lg">
+                        HIRE US
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">we're educational game developers
+                </h2>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Creating playful, impactful experiences that improve people’s lives. I believe learning should be a
+                    joyful and transformative experience. Leveraging expertise in game design and pedagogy to deliver
+                    measurable learning outcomes for international clients.
+                </p>
+            </div>
+        </section>
+
+        <section id="portfolio" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-3xl font-bold primary-color-text">Project: The STEM Adventure</h3>
+                    <p class="text-xl font-medium text-gray-700">Ignite Curiosity and Master Local STEM Concepts.</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        This project is a sandbox simulation built in WebGL, focusing on design thinking and engineering
+                        concepts (like robotics and resource management) aligned with the **UK National Curriculum
+                        (KS3)**. It is ready for direct WebGL implementation or distribution via platforms like Legends
+                        of Learning.
+                    </p>
+                    <div class="flex space-x-4 pt-4">
+                        <a href="#game-page-1" class="primary-button bg-[#3b82f6] text-white hover:bg-blue-700">EXPLORE
+                            PROJECT</a>
+                        <a href="#contact"
+                            class="primary-button border border-gray-300 text-gray-700 hover:bg-gray-100">VIEW CASE
+                            STUDY</a>
+                    </div>
+                </div>
+                <div class="h-64 md:h-96 bg-gray-200 rounded-xl shadow-2xl flex items-center justify-center">
+                    <span class="text-gray-500">Educational Game Media Placeholder</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="casual" class="py-16 md:py-24 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div
+                    class="h-64 md:h-96 bg-gray-300 rounded-xl shadow-2xl flex items-center justify-center order-1 lg:order-2">
+                    <span class="text-gray-600">Casual Game Media Placeholder</span>
+                </div>
+                <div class="space-y-6 order-2 lg:order-1">
+                    <h3 class="text-3xl font-bold primary-color-text">Casual Project: Tropical Runner</h3>
+                    <p class="text-xl font-medium text-gray-700">Pure Fun. Anytime. Anywhere.</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        A quick, colorful endless runner built for mobile devices. This project showcases proficiency in
+                        rapid prototyping, monetization strategies (non-intrusive IAPs), and mass-market appeal.
+                        Available on Google Play and itch.io. This is built purely for fun and skill demonstration.
+                    </p>
+                    <div class="flex space-x-4 pt-4">
+                        <a href="#casual-page-1" class="primary-button bg-[#3b82f6] text-white hover:bg-blue-700">BUY
+                            NOW</a>
+                        <a href="#casual-page-1"
+                            class="primary-button border border-gray-300 text-gray-700 hover:bg-gray-100">MORE INFO</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="media-content">
+                    <div class="h-64 md:h-80 bg-gray-200 rounded-xl shadow-2xl flex items-center justify-center">
+                        <span class="text-gray-500">About Us Video/Image Placeholder</span>
+                    </div>
+                </div>
+                <div class="text-content space-y-6">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">who we are</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        At GyroVector Games, I strive to remain curious, to give myself room to experiment, and to grow
+                        my passion through learning. I am a solo developer based in Nigeria focused on delivering
+                        world-class educational software to international partners.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-4">
+                        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <strong class="text-3xl font-extrabold primary-color-text block">12+</strong>
+                            <p class="text-sm text-gray-600">Projects Completed</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <strong class="text-3xl font-extrabold primary-color-text block">6 Years</strong>
+                            <p class="text-sm text-gray-600">In Game Dev</p>
+                        </div>
+                    </div>
+                    <a href="about.html" class="primary-button bg-[#3b82f6] text-white hover:bg-blue-700 mt-4">ABOUT
+                        US</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">trusted by educators & platforms</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
+                    We have partnered with or produced work for institutions and platforms that demand the highest
+                    standards in EdTech and learning outcomes.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+                    <div
+                        class="logo-item text-gray-700 text-xl font-semibold opacity-70 hover:opacity-100 transition duration-300">
+                        Legend of Learning</div>
+                    <div
+                        class="logo-item text-gray-700 text-xl font-semibold opacity-70 hover:opacity-100 transition duration-300">
+                        EdTech Co.</div>
+                    <div
+                        class="logo-item text-gray-700 text-xl font-semibold opacity-70 hover:opacity-100 transition duration-300">
+                        Unity</div>
+                    <div
+                        class="logo-item text-gray-700 text-xl font-semibold opacity-70 hover:opacity-100 transition duration-300">
+                        Upwork Client</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 primary-color-bg text-white text-center">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-4xl sm:text-5xl font-extrabold mb-4">WANT TO HIRE US?</h2>
+                <p class="text-xl font-light mb-8 max-w-3xl mx-auto">
+                    We’d love to hear about your project. Our work is game-based learning content for any age, any
+                    subject, and any platform. Our vision and subject matter expertise will be at the center of our
+                    partnership as we bring your game to life.
+                </p>
+                <a href="contact.html"
+                    class="primary-button bg-white text-[#3b82f6] hover:bg-gray-200 text-lg shadow-2xl">CONTACT</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-gray-700 pb-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="text-2xl font-extrabold primary-color-text mb-2">GyroVector Games</div>
+                    <p class="text-sm text-gray-400">Lagos, Nigeria (Remote / Global Service)</p>
+                    <p class="text-sm text-gray-400 mt-2">We create playful experiences that improve people's lives</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-lg font-bold mb-3">Sitemap</h4>
+                    <a href="portfolio.html" class="block text-sm text-gray-400 hover:text-white">Portfolio</a>
+                    <a href="casual.html" class="block text-sm text-gray-400 hover:text-white">Casual Games</a>
+                    <a href="#services" class="block text-sm text-gray-400 hover:text-white">Services</a>
+                    <a href="about.html" class="block text-sm text-gray-400 hover:text-white">About</a>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-lg font-bold mb-3">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between text-sm text-gray-500">
+                <p class='mb-2 md:mb-0'>&copy; 2025 GyroVector Games. ALL RIGHTS RESERVED</p>
+                <a href="#" class="hover:text-white">PRIVACY POLICY</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

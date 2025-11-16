@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | GyroVector Games</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Alpine.js -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Load Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Define your custom color and font consistency based on about.html */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Custom Tailwind Configuration (for easy use of the brand color) */
+        :root {
+            --color-primary: #E94E34;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #333333; }
+        
+        /* Custom Classes for styling consistency with about.html */
+        .primary-color { color: var(--color-primary); }
+        .primary-bg { background-color: var(--color-primary); }
+        .primary-border { border-color: var(--color-primary); }
+        
+        .nav-link:hover { color: var(--color-primary); transition: color 0.2s; }
+        .section-title { font-size: 3rem; font-weight: 800; line-height: 1.1; color: #333333; }
+        
+        .cta-button { background-color: var(--color-primary); color: white; border-radius: 9999px; transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+        .cta-button:hover { background-color: #cc452f; transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        
+        .svg-icon-circle { border: 2px solid var(--color-primary); border-radius: 9999px; }
+        .icon-text { color: var(--color-primary); }
+
+        /* Card Hover Effect */
+        .service-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Navigation (Copied Structure from about.html) -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <div class="flex items-center space-x-2">
+                <a href="index.html" class="text-2xl font-extrabold primary-color-text">
+
+                    <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" stroke="#E94E34" stroke-width="5"/>
+                        <text x="50" y="70" font-family="Inter, sans-serif" font-size="50" font-weight="900" fill="#E94E34" text-anchor="middle">GV</text>
+                    </svg>
+                </a>
+                
+                <a href="index.html" class="text-2xl font-extrabold primary-color-text">
+                    <div class="text-xl font-bold text-gray-800">GyroVector Games</div>
+                </a>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold text-gray-600 uppercase tracking-widest">
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="casual.html" class="nav-link">Casual Games</a>
+                <a href="services.html" class="nav-link primary-color border-b-2 primary-border">Services</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button 
+                class="md:hidden text-gray-700 hover:primary-color transition p-2 rounded-full"
+                @click="mobileMenuOpen = !mobileMenuOpen"
+            >
+                <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div 
+            class="md:hidden absolute top-[72px] left-0 w-full bg-white shadow-xl"
+            x-show="mobileMenuOpen" x-cloak
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform -translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-4"
+        >
+            <a href="portfolio.html" class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50" @click="mobileMenuOpen = false">Portfolio</a>
+            <a href="casual.html" class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50" @click="mobileMenuOpen = false">Casual Games</a>
+            <a href="services.html" class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 primary-color bg-gray-50" @click="mobileMenuOpen = false">Services</a>
+            <a href="contact.html" class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50" @click="mobileMenuOpen = false">Contact</a>
+            <a href="about.html" class="block py-3 px-4 text-base font-medium uppercase tracking-widest text-gray-700 hover:bg-gray-50" @click="mobileMenuOpen = false">About</a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="w-full bg-gray-100 py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+                    Full-Spectrum Learning Game Development
+                </h1>
+                <p class="mt-4 text-xl text-gray-600 max-w-4xl mx-auto">
+                    From concept to classroom, we offer tailored services that combine cutting-edge **learning science** with world-class **game design** to achieve measurable educational outcomes.
+                </p>
+                <div class="mt-8">
+                    <a href="#consultation-form" class="cta-button px-8 py-3 text-lg font-bold uppercase tracking-wider inline-flex items-center space-x-2 shadow-xl">
+                        <i class="fas fa-handshake"></i>
+                        <span>Start Your Project</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Service Offerings -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="section-title text-center mb-16">our modular services</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Service Card 1: Game Design & Pedagogy -->
+                    <div class="service-card bg-white p-8 rounded-xl shadow-lg border-t-8 primary-border">
+                        <div class="primary-color text-5xl mb-4">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 uppercase">Pedagogical Design</h3>
+                        <p class="text-gray-600 mb-4">We are learning experts first. We conduct **learning objective mapping**, wireframe game mechanics around **scaffolding** principles, and design assessment loops for continuous feedback.</p>
+                        <ul class="text-sm text-gray-500 list-disc ml-5 space-y-1">
+                            <li>Curriculum Alignment (K-12, Higher Ed, Corporate)</li>
+                            <li>Assessment & Data Strategy</li>
+                            <li>"Pleasing Frustration" Balancing</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 2: Custom Development & Art -->
+                    <div class="service-card bg-white p-8 rounded-xl shadow-lg border-t-8 border-gray-900">
+                        <div class="text-gray-900 text-5xl mb-4">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 uppercase">Full-Stack Development</h3>
+                        <p class="text-gray-600 mb-4">Using industry-standard engines (Unity, HTML5/JS), we build high-performance, cross-platform games. Includes stunning art, audio, and robust code.</p>
+                        <ul class="text-sm text-gray-500 list-disc ml-5 space-y-1">
+                            <li>Cross-Platform Implementation</li>
+                            <li>UX/UI tailored for learning</li>
+                            <li>2D/3D Art & Animation Pipelines</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service Card 3: EdTech Integration & LRS -->
+                    <div class="service-card bg-white p-8 rounded-xl shadow-lg border-t-8 border-yellow-500">
+                        <div class="text-yellow-500 text-5xl mb-4">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 uppercase">Reporting & Analytics</h3>
+                        <p class="text-gray-600 mb-4">We ensure the game reports meaningful data back to educators and administrators. We integrate with all major **LMS** and **LRS** platforms.</p>
+                        <ul class="text-sm text-gray-500 list-disc ml-5 space-y-1">
+                            <li>xAPI/cmi5 Implementation</li>
+                            <li>LMS/SCORM Compliance</li>
+                            <li>Performance Dashboards Design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">How We Work: The GyroVector Process</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center text-center p-4">
+                        <div class="svg-icon-circle p-5 w-20 h-20 mb-4 flex items-center justify-center bg-white shadow-md">
+                            <span class="text-2xl font-extrabold primary-color">1</span>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">DISCOVER</h4>
+                        <p class="text-gray-600 text-sm">Define learning goals, target audience, and hardware context. Align project scope with budget.</p>
+                    </div>
+
+                    <!-- Arrow Icon -->
+                    <div class="hidden md:flex items-center justify-center">
+                        <i class="fas fa-arrow-right primary-color text-2xl"></i>
+                    </div>
+
+                    <!-- Step 2 (Mobile alignment fix) -->
+                    <div class="flex flex-col items-center text-center p-4 md:col-start-3 md:row-start-1">
+                        <div class="svg-icon-circle p-5 w-20 h-20 mb-4 flex items-center justify-center bg-white shadow-md">
+                            <span class="text-2xl font-extrabold primary-color">2</span>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">DESIGN & PROTOTYPE</h4>
+                        <p class="text-gray-600 text-sm">Create pedagogical blueprints, wireframes, and a playable prototype to lock down mechanics and look-and-feel.</p>
+                    </div>
+
+                    <!-- Arrow Icon -->
+                    <div class="hidden md:flex items-center justify-center md:col-start-4 md:row-start-1">
+                        <i class="fas fa-arrow-right primary-color text-2xl"></i>
+                    </div>
+
+                    <!-- Step 3 (Mobile alignment fix) -->
+                    <div class="flex flex-col items-center text-center p-4 md:col-start-4 md:row-start-2">
+                        <div class="svg-icon-circle p-5 w-20 h-20 mb-4 flex items-center justify-center bg-white shadow-md">
+                            <span class="text-2xl font-extrabold primary-color">3</span>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">DEVELOP & ITERATE</h4>
+                        <p class="text-gray-600 text-sm">Full production, continuous testing, and integrating feedback from educators and pilot users to refine the learning experience.</p>
+                    </div>
+
+                    <!-- Arrow Icon (Reversed for mobile flow) -->
+                    <div class="hidden md:flex items-center justify-center md:col-start-3 md:row-start-2">
+                        <i class="fas fa-arrow-left primary-color text-2xl"></i>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="flex flex-col items-center text-center p-4 md:col-start-2 md:row-start-2">
+                        <div class="svg-icon-circle p-5 w-20 h-20 mb-4 flex items-center justify-center bg-white shadow-md">
+                            <span class="text-2xl font-extrabold primary-color">4</span>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2 text-gray-800">DEPLOY & SUPPORT</h4>
+                        <p class="text-gray-600 text-sm">Launch the final product, integrate tracking, and provide ongoing technical support and maintenance.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Consultation Form Section (Alpine.js Powered) -->
+        <section id="consultation-form" class="py-20 primary-bg" x-data="consultationForm()">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white p-8 md:p-10 rounded-xl shadow-2xl">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Let's Create Something Great</h2>
+                    <p class="text-gray-600 mb-8 text-center">Ready to explore how GyroVector Games can bring your vision to life? Fill out the form below to book a free consultation.</p>
+
+                    <!-- Success Message -->
+                    <div x-show="isSubmitted" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100" class="text-center py-10">
+                        <div class="inline-flex p-4 rounded-full bg-green-100 text-green-600 mb-4">
+                            <!-- Check Icon -->
+                            <i class="fas fa-check-circle text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-2">Success!</h3>
+                        <p class="text-gray-600">Your request has been received. A project manager will contact you shortly to schedule a deep-dive call.</p>
+                        <button @click="resetForm()" class="mt-6 inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-full shadow-lg text-white cta-button">
+                            Submit Another Inquiry
+                        </button>
+                    </div>
+
+                    <!-- Form -->
+                    <form @submit.prevent="submitForm()" x-show="!isSubmitted" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90">
+
+                        <!-- Name & Organization -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" id="name" name="name" x-model="formData.name" required
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-color focus:primary-border transition duration-150">
+                            </div>
+                            <div>
+                                <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">Organization</label>
+                                <input type="text" id="organization" name="organization" x-model="formData.organization" required
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-color focus:primary-border transition duration-150">
+                            </div>
+                        </div>
+
+                        <!-- Email & Service Select -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Work Email</label>
+                                <input type="email" id="email" name="email" x-model="formData.email" required
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-color focus:primary-border transition duration-150">
+                            </div>
+                            <div>
+                                <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Primary Interest</label>
+                                <select id="service" name="service" x-model="formData.service" required
+                                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-color focus:primary-border transition duration-150 bg-white">
+                                    <option value="" disabled>Select a core service</option>
+                                    <option value="Full Custom Game Dev">Full Custom Game Dev</option>
+                                    <option value="Learning Design & Prototyping">Learning Design & Prototyping</option>
+                                    <option value="EdTech Integration / Reporting">EdTech Integration / Reporting</option>
+                                    <option value="Art & Animation Only">Art & Animation Only</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Project Details Textarea -->
+                        <div class="mb-6">
+                            <label for="details" class="block text-sm font-medium text-gray-700 mb-1">Briefly describe your project or goal</label>
+                            <textarea id="details" name="details" rows="4" x-model="formData.details" required
+                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-color focus:primary-border transition duration-150"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" :disabled="isSubmitting"
+                            class="w-full flex justify-center items-center px-6 py-3 text-base font-bold rounded-lg text-white shadow-xl cta-button disabled:bg-gray-400 disabled:shadow-none"
+                            :class="{'animate-pulse': isSubmitting}">
+                            <span x-show="!isSubmitting" class="uppercase tracking-widest">Book Your Free Consultation</span>
+                            <span x-show="isSubmitting" class="flex items-center">
+                                <i class="fas fa-spinner fa-spin mr-3"></i>
+                                Processing Request...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Copied Structure from about.html) -->
+    <footer class="bg-gray-900 text-white flex-shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-8 mb-8">
+                
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-2 mb-2">
+                         <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" stroke="#E94E34" stroke-width="5"/>
+                            <text x="50" y="70" font-family="Inter, sans-serif" font-size="50" font-weight="900" fill="#E94E34" text-anchor="middle">GV</text>
+                        </svg>
+                        <div class="text-xl font-bold">GyroVector Games</div>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-4">821 E WASHINGTON AVE</p>
+                    <p class="text-sm text-gray-400">MADISON, WI 53703</p>
+                    <div class="flex space-x-4 mt-4 justify-center md:justify-start">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <div class="flex flex-col items-center md:items-end justify-center md:justify-end space-x-2 mb-4">
+                        <i class="fas fa-gamepad text-5xl primary-color mb-2"></i>
+                        <p class="text-lg font-semibold max-w-xs">we create playful experiences that improve people's lives</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between text-sm text-gray-400">
+                <p class='mb-2 md:mb-0'>&copy; 2025 GYROVECTOR GAMES. ALL RIGHTS RESERVED</p>
+                <a href="#" class="hover:text-white">PRIVACY POLICY</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Alpine.js Initialization and Utility Script -->
+    <script>
+        function consultationForm() {
+            return {
+                // Initial form state
+                formData: {
+                    name: '',
+                    organization: '',
+                    email: '',
+                    service: '',
+                    details: ''
+                },
+                isSubmitting: false,
+                isSubmitted: false,
+                
+                // Function to simulate form submission
+                submitForm() {
+                    this.isSubmitting = true;
+
+                    // IMPORTANT: In a real application, you would send this.formData to your backend API here.
+                    console.log('Consultation Request Submitted:', this.formData);
+
+                    // Simulate API delay and validation check
+                    setTimeout(() => {
+                        this.isSubmitting = false;
+                        // Assuming success:
+                        this.isSubmitted = true;
+                        
+                        // Scroll to the top of the form section to show the success message clearly
+                        document.getElementById('consultation-form').scrollIntoView({ behavior: 'smooth' });
+                        
+                    }, 2000); // 2 second simulation delay
+                },
+
+                // Function to reset the form
+                resetForm() {
+                    this.isSubmitted = false;
+                    this.formData = {
+                        name: '',
+                        organization: '',
+                        email: '',
+                        service: '',
+                        details: ''
+                    };
+                }
+            }
+        }
+    </script>
+</body>
+</html>
