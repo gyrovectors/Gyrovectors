@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Portfolio | Educational & Casual</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #4da6ff;
+            --accent-hover: #82c2ff;
+            --success: #2ecc71; /* Green for contact button */
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --spacing-unit: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-unit);
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            padding: 60px 0 40px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+            text-align: center; /* Optional: centers header text too */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            margin-bottom: 100px;
+            padding-top: 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        /* Centered accent underline */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* --- GAME GRID (UPDATED FOR CENTERING) --- */
+        .game-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* This centers the items horizontally */
+            gap: 30px;
+        }
+
+        /* --- GAME CARD --- */
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            /* Flex properties to handle width nicely */
+            flex: 0 1 350px; /* Don't grow past 350px, but shrink if needed */
+            width: 100%; /* Fallback for mobile */
+            min-width: 280px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .thumb-container {
+            width: 100%;
+            height: 200px;
+            background-color: #2c2c2c;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .thumb-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .thumb-container img {
+            transform: scale(1.05);
+        }
+
+        .thumb-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .game-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+ 
+        
+        /* --- BUTTONS --- */
+        .btn-play {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            text-align: center;
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-play:hover {
+            background-color: var(--accent);
+            color: #fff;
+        }
+
+        /* --- CONTACT SECTION (NEW) --- */
+        .contact-cta {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+            border: 1px solid #333;
+        }
+
+        .contact-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-cta p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            background-color: var(--success);
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .btn-contact:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        .contact-fallback {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .contact-fallback a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #555;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .section-title { font-size: 1.5rem; }
+            nav ul { flex-direction: column; gap: 10px; text-align: center; }
+            .game-card { flex: 1 1 100%; } /* Cards take full width on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>Game Portfolio</h1>
+            <p class="subtitle">Interactive Experiences & Educational Simulations</p>
+            <nav>
+                <ul>
+                    <li><a href="#educational-topic">Topic Based Games</a></li>
+                    <li><a href="#simulations">Simulations</a></li>
+                    <li><a href="#puzzles">Educational Puzzles</a></li>
+                    <li><a href="#casual">Casual Games</a></li>
+                    <li><a href="#commercial-work">Commercial Work</a></li>
+                    <li><a href="#Unity-Assets">Unity Assets</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="educational-topic">
+            <h2 class="section-title">Topic Based Educational Games</h2>
+            <div class="game-grid">
+                
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Wavebender+GIF" alt="Wavebender Gameplay"> -->
+                        <!-- <img src="./images/waveBender.gif" alt="Wavebender Gameplay"> -->
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/waveBender.webm" type="video/webm">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Wavebender: Kai's Adventure</h3>
+                        <p class="game-desc">Embark on an odyssey as Kai, wielding the mystic Gauntlet. Manipulate wave properties—amplitude, frequency, and wavelength—to solve acoustic puzzles.</p>
+                        <a href="https://itch.io/embed-upload/16181518?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/NBA.webm" type="video/webm">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=NBA+Newton+GIF" alt="NBA Newton Gameplay"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">NBA: Newton's Basketball Assoc.</h3>
+                        <p class="game-desc">Master the court using the laws of physics. Calculate force and trajectory to sink baskets while internalizing Newton's First and Second Laws.</p>
+                        <a href="https://itch.io/embed-upload/16181625?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="simulations">
+            <h2 class="section-title">Educational Simulations</h2>
+            <div class="game-grid">
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/energy.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Energy+Grid+GIF" alt="Energy Simulation"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Power Grid: The Converter</h3>
+                        <p class="game-desc">Take control of the energy lifecycle. Manage the conversion of raw heat into mechanical work and electricity, optimizing the flow from steam generator to city lights.</p>
+                        <a href="https://itch.io/embed-upload/16181668?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/collision.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Momentum+Lab+GIF" alt="Momentum Simulation"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Collider Scope</h3>
+                        <p class="game-desc">An interactive physics lab at your fingertips. Experiment with mass and velocity to visualize the conservation of momentum in perfectly elastic collisions.</p>
+                        <a href="https://itch.io/embed-upload/16181645?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="puzzles">
+            <h2 class="section-title">Educational Puzzles</h2>
+            <div class="game-grid">
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/MathsGame.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Math+Puzzle+GIF" alt="Math Puzzle"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Equation Architect</h3>
+                        <p class="game-desc">Logic meets arithmetic. Rearrange misplaced numbers and operators to balance the equation in this relaxing yet challenging drag-and-drop puzzle.</p>
+                        <a href="https://itch.io/embed-upload/16180933?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/englishGame.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=English+Game+GIF" alt="English Game"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Lexicon Sprint</h3>
+                        <p class="game-desc">Push your verbal reflexes to the limit. Rapidly identify synonyms and process text in a high-speed challenge designed to boost reading comprehension.</p>
+                        <a href="https://itch.io/embed-upload/16181863?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="casual">
+            <h2 class="section-title">Casual Games</h2>
+            <div class="game-grid">
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Parking+Jam+GIF" alt="Parking Jam"> -->
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/parkingjam.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Parking Jam</h3>
+                        <p class="game-desc">Untangle the traffic chaos. Strategically move cars to clear the lot in this addictive spatial puzzle that tests your logical foresight.</p>
+                        <a href="https://itch.io/embed-upload/16181894?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/stormshot.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Stormshot+GIF" alt="Stormshot"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Stormshot</h3>
+                        <p class="game-desc">Precision aiming meets puzzle solving. Ricochet shots off walls and obstacles to defeat enemies with the perfect angle.</p>
+                        <a href="https://itch.io/embed-upload/16181926?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/blockblast.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=BlockBlast+GIF" alt="BlockBlast"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">BlockBlast</h3>
+                        <p class="game-desc">A vibrant block-matching frenzy. Fit shapes into the grid to clear lines and beat your high score in this timeless brain teaser.</p>
+                        <a href="https://itch.io/embed-upload/16182115?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/Unblock.mp4" type="video/mp4"> 
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Unblock+Puzzle+GIF" alt="Unblock Puzzle"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Unblock Puzzle</h3>
+                        <p class="game-desc">Slide the blocks to free the path. A classic logic game of sliding tiles to guide the red block to the exit.</p>
+                        <a href="https://itch.io/embed-upload/16182155?color=333333" class="btn-play" target="_blank">Try this game</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="commercial-work">
+            <h2 class="section-title">Commercial Work</h2>
+            <div class="game-grid">
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/Miami.mp4" type="video/mp4"> 
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Miami+Bay+GIF" alt="Parking Jam"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Miami Bay</h3>
+                        <p class="game-desc">A detective game where I served as an <strong>Additional Programmer</strong>. I specifically developed the Map Puzzle system, the zoom system, and the more.</p>
+                        <a href="https://wolfescapegames.com/products/miami-bay-the-online-escape-room-experience?srsltid=AfmBOoqUyoD3dyb72_mPw--jpTCD5IQpg1FN7L2tCilMcMJ0msw-l95P" class="btn-play" target="_blank">Official Store</a>
+                    </div>
+                </article>
+                </article>
+            </div>
+        </section>
+
+        <!-- <div class="see-all-projects">
+            <a href="#" class="btn-play" target="_blank">See All commercial-works</a>
+        </div> -->
+
+        <section id="Unity-Assets">
+            <h2 class="section-title">Unity Assets</h2>
+            <div class="game-grid">
+
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/ArrayMod.mp4" type="video/mp4">
+                        </video>
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Easy+Array+Modifier+GIF" alt="Easy Array Modifier"> -->
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Easy Array Modifier</h3>
+                        <p class="game-desc">A Unity asset that is used to easily create an array of objects on the basis of the original. It works very similarly to the regular modifier "Array" in 3D modelling softwares such as Maya, Blender etc.</p>
+                        <a href="https://assetstore.unity.com/packages/tools/game-toolkits/easy-array-modifier-231462" class="btn-play" target="_blank">Check this asset</a>
+                    </div>
+                </article>
+                
+                <article class="game-card">
+                    <div class="thumb-container">
+                        <!-- <img src="https://placehold.co/600x400/333/FFF?text=Easy+Instruction+Dialogue+GIF" alt="Easy Instruction Dialogue"> -->
+                        <video autoplay loop muted playsinline>
+                            <source src="./Videos/DialogueAsset.webm" type="video/webm">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="game-title">Easy Instruction Dialogue</h3>
+                        <p class="game-desc">A Unity asset that simplifies instruction dialogue in C# scripts. Perfect for developers looking to streamline their workflow.</p>
+                        <a href="https://assetstore.unity.com/packages/tools/gui/easy-instruction-dialogue-221474" class="btn-play" target="_blank">Check this asset</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="contact-cta">
+            <h2>Like what you see?</h2>
+            <p>We are available for hire and game licensing opportunities. Let's create something amazing together.</p>
+            
+            <a href="mailto:Gyrovectors@gmail.com?subject=Inquiry%3A%20Game%20Licensing%20%2F%20Development&body=Hello%2C%0D%0A%0D%0AI%20am%20interested%20in%20discussing%20a%20project%2Flicensing%20opportunity.%0D%0A%0D%0ARegards%2C" class="btn-contact">
+                Get in Touch
+            </a>
+            
+            <span class="contact-fallback">
+                or contact us directly at <a href="mailto:Gyrovectors@gmail.com">Gyrovectors@gmail.com</a> or <a href="mailto:RajiMalik10@gmail.com">RajiMalik10@gmail.com</a>
+            </span>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 My Game Portfolio.</p>
+        </footer>
+
+    </div>
+</body>
+</html>
